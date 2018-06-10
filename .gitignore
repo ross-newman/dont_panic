@@ -1,8 +1,11 @@
 # Dependency directories
 node_modules/
+bower_components/
 
 # TypeScript v1 declaration files
 typings/
 
 # Optional npm cache directory
 .npm
+
+package-lock.json
