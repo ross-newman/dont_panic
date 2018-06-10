@@ -13,12 +13,12 @@ Instaled components
 > NOTE: When installing MongoDB Community Server under Windows 10 you may get an error installing Compass. Deselect Compass and reinstall. Use the stand alone installer to install Compass to resolve this issue.
 
 ### Node.JS and MongoDB setup
-To setup the server first create the database directory the run ther server:
+To setup the server under Windows 10 first create the database directory the run ther server:
 ```
 md \data\db
 "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe"
 ```
-Next install mongoDB Node.js extensions:
+All other dependancies are described in [package.json](./package.json). All front end depandancies are also instaled using bowser.
 ```
-npm install mongodb
+npm install
 ```
