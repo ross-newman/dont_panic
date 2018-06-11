@@ -18,6 +18,7 @@
 				$scope.comment = "Please enter seach string first";
 				console.log("AJAX fail" + $scope.searchstring);
 			} else {
+				$scope.comment = "";
 				console.log("AJAX call");
 				$http.get("/api?search=" + $scope.searchstring).success(function (response) {
 					$scope.names = response;

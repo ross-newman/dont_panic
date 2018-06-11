@@ -22,7 +22,7 @@ const hostname = '127.0.0.1';
 const port = 3000;
 
 // Turn on some debug
-var DEBUG = 0;
+var DEBUG = 1;
 
 /**
  * Log a message if debug is enabled.
@@ -113,10 +113,10 @@ function apiServer(res, apiname) {
         MongoClient.connect(mongodb_url, function (err, db) {
             if (err) throw err;
             var dbo = db.db(database_name);
-            var query = "{ \"name.first\" : \"" + queryData.search + "\"}";
-            log("API query : " + query);
+            var search = queryData.search;
+            log("API query : " + search);
             // TODO: Improve search. Search partial and last names
-            dbo.collection("customers").find(JSON.parse(query), { projection: { _id: 0, name: 1 } }).toArray(function (err, result) {
+            dbo.collection("customers").find({ "name.first" : new RegExp(search, "i")}, { projection: { _id: 0, name: 1 } }).toArray(function (err, result) {
                 res.write(JSON.stringify(result));
                 res.end();
             });
