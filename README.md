@@ -22,7 +22,7 @@ All other dependancies are described in [package.json](./package.json). All fron
 ```
 npm install
 ```
-To setup the default database of 50 names (created using http://listofrandomnames.com/) run the test script below.
+To setup the default database of 50 names (created using http://listofrandomnames.com/) run the test script below. You can replace the list with your own or add names to the list as required see [names.txt](./names.txt)
 ```
 npm test
 ```
