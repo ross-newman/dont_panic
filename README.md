@@ -53,3 +53,6 @@ There are a couple of vars that change the behaviuor of the server there are :
 * DEBUG - enable debug logging (DEBUG=0)
 * SECURE - create https encrypted server (SECURE=1)
 > NOTE : A test certificate and key is provided for the purposes of testing but is not from a recogniced certificate authority. Create your own certiicated for testing in Cygwin using the command 'openssl req -newkey rsa:2048 -nodes -keyout domain.key -x509 -days 365 -out domain.crt'. In production this will need to be replaced.
+
+![Not Secure Image](img/secure-error.png)<br>
+Google chrome will reject the certificate you can override this to work with the temporary certificate.
