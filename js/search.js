@@ -1,5 +1,3 @@
-console.log("name-search API invoked!");
-
 // IIFE
 (function () {
 	'use strict';

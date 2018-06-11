@@ -1,9 +1,11 @@
-const http = require('http');
+const express = require('express');
+const app = express();
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
 var path = require('path');
 var url = require('url');
 var fs = require('fs');
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
 var database_name = "name";
 var mongodb_url = "mongodb://localhost:27017/" + database_name;
 
@@ -13,35 +15,35 @@ const database_url = 'mongodb://localhost:27017';
 // MongoDB Database Name
 const dbName = 'names';
 
-/**
- * The default hostname of the server 
- * @constant
- * @type {string}
- * @default 
- */
+// Defult host name
 const hostname = '127.0.0.1';
 
-/** 
- * \var port 
- * \brief The default port number of the server 
- */
+// Default port
 const port = 3000;
 
-/**
- * Enable some additional debugging featured to be enabled 
- */
-var DEBUG = 1;
+// Turn on some debug
+var DEBUG = 0;
 
 /**
- *  \brief Add a new asset to the database.
+ * Log a message if debug is enabled.
+ * 
+ * @param {String} msg - The message to send to console.log().
+ */
+function log(msg) {
+    if (DEBUG) {
+        console.log(msg);
+    }
+}
+
+/**
+ * Serve the requested file and.
  * 
  * @param {Object} res - HTTP server response object
  * @param {String} filename - Requested filename.
  */
 function fileServer(res, filename) {
-    if (DEBUG) {
-        console.log('File Server : ' + "http://" + hostname + ":" + port + filename.slice(1, filename.length));
-    }
+    log('File Server : ' + "http://" + hostname + ":" + port + "/" + filename.slice(1, filename.length));
+
     var filePath = "." + filename;
     var extname = path.extname(filePath);
     var contentType = 'text/html';
@@ -84,8 +86,14 @@ function fileServer(res, filename) {
     return;
 }
 
+/**
+ * The /api REST interface. With no search field will return all objects.
+ * 
+ * @param {Object} res - HTTP server response object
+ * @param {String} apiname - Search /api?search=joe.
+ */
 function apiServer(res, apiname) {
-    console.log("API Request : " + apiname);
+    log("API Request : " + apiname);
     var queryData = url.parse(apiname, true).query;
 
     // Check to see if the search key was included, if nmot return all results
@@ -101,12 +109,12 @@ function apiServer(res, apiname) {
         });
     } else {
         // Search value provided
-        console.log("API search : " + queryData.search);
+        log("API search : " + queryData.search);
         MongoClient.connect(mongodb_url, function (err, db) {
             if (err) throw err;
             var dbo = db.db(database_name);
             var query = "{ \"name.first\" : \"" + queryData.search + "\"}";
-            console.log("API query : " + query);
+            log("API query : " + query);
             // TODO: Improve search. Search partial and last names
             dbo.collection("customers").find(JSON.parse(query), { projection: { _id: 0, name: 1 } }).toArray(function (err, result) {
                 res.write(JSON.stringify(result));
@@ -116,47 +124,42 @@ function apiServer(res, apiname) {
     }
 }
 
-// TODO: Replace http with express
-const server = http.createServer(function (req, res) {
-    const u = url.parse(req.url);
-    console.log("Page request: " + req.url);
-    var array = u.pathname.split('/');
+/**
+ * The catch all #404 Page Not Found response.
+ * 
+ * @param {Object} res - HTTP server response object
+ * @param {String} res - HTTP response object.
+ */
+function notFound(req, res) {
+    res.writeHead(404, { 'Content-Type': 'text/html' });
+    res.write('Simple name server, please use the prescribed RESTful API<br />');
+    res.write('Error 404, page not found : \n' + req.url);
+    res.end();
+}
 
-    if (array.length > 0) {
-        /* Database exists so process pages normally */
-        switch (array[1]) {
-            case 'name':
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                search_name(mypage);
-                break;
-            case 'bootstrap':
-            case 'jquery':
-            case 'angular':
-            case 'restangular':
-                fileServer(res, '/bower_components' + req.url);
-                break;
-            case 'index.html':
-            case 'js':
-            case 'css':
-                fileServer(res, req.url);
-                break;
-            case 'api':
-                apiServer(res, req.url);
-                break;
-            case '': // Go to the home page
-            default:
-                res.writeHead(404, { 'Content-Type': 'text/html' });
-                res.write('Simple name server, please use the prescribed RESTful API<br />');
-                res.write('Error 404, page not found : \n' + req.url);
-                res.end();
-        }
-    }
+// Setup all the express routes
+app.get('/', function (req, res) {
+    fileServer(res, "/index.html");
 });
 
-/* Now listen to server */
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+app.get(/(^\/index.html|^\/js|^\/css)/, function (req, res) {
+    log("Express : " + req.url)
+    fileServer(res, req.url);
 });
 
+app.get(/(^\/bootstrap|^\/jquery|^\/angular|^\/restangular)/, function (req, res) {
+    log("Express : " + req.url)
+    fileServer(res, '/bower_components' + req.url);
+});
 
+app.get('/api', function (req, res) {
+    apiServer(res, req.url);
+});
 
+//The 404 Route (ALWAYS Keep this as the last route)
+app.get('*', function (req, res) {
+    notFound(req, res);
+});
+
+// Now the routes are setup start listening
+app.listen(port, () => console.log(`Server running at http://${hostname}:${port}/`));

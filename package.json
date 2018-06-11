@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "bower": "^1.8.4",
+    "express": "^4.16.3",
     "mongodb": "^3.0.10",
     "npm": "^6.1.0"
   },
