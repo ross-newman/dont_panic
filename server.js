@@ -88,7 +88,9 @@ function apiServer(res, apiname) {
     console.log("API Request : " + apiname);
     var queryData = url.parse(apiname, true).query;
 
+    // Check to see if the search key was included, if nmot return all results
     if (queryData.search == undefined) {
+        // No search value
         MongoClient.connect(mongodb_url, function (err, db) {
             if (err) throw err;
             var dbo = db.db(database_name);
@@ -98,12 +100,14 @@ function apiServer(res, apiname) {
             });
         });
     } else {
+        // Search value provided
         console.log("API search : " + queryData.search);
         MongoClient.connect(mongodb_url, function (err, db) {
             if (err) throw err;
             var dbo = db.db(database_name);
             var query = "{ \"name.first\" : \"" + queryData.search + "\"}";
             console.log("API query : " + query);
+            // TODO: Improve search. Search partial and last names
             dbo.collection("customers").find(JSON.parse(query), { projection: { _id: 0, name: 1 } }).toArray(function (err, result) {
                 res.write(JSON.stringify(result));
                 res.end();
