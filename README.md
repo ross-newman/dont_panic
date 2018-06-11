@@ -33,7 +33,7 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [x] Check index.html against https://validator.w3.org
 - [x] Allow partial name matches in application
 - [ ] Secure the mongoDB and AngularJS connection (Authentication and Authorization).
-- [ ] Encrypt connection data https.
+- [x] Encrypt connection data https.
 - [x] Update the backend to use Express as per the requirement
 - [ ] Add inline documentation into comments ([jsdoc](https://www.npmjs.com/package/jsdoc)) and test documentation generation (incomplete)
 - [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
@@ -47,3 +47,9 @@ AngularJS was used in this example as switching to Angular 2 would have increase
 Inital implementation did not use the express framework again due to lack of familiarity. Prototyping the code using http-server was more familiar and could be switched out later. Getting the MongoDB API functioning was deemed the highest priority so this was the feature that I focused on first.
 
 Some importance was placed on the front end. Bootstrap was used to provide a simple clean interface and to present the clean table or results post search.
+
+## Notes
+There are a couple of vars that change the behaviuor of the server there are :
+* DEBUG - enable debug logging (DEBUG=0)
+* SECURE - create https encrypted server (SECURE=1)
+> NOTE : A test certificate and key is provided for the purposes of testing but is not from a recogniced certificate authority. Create your own certiicated for testing in Cygwin using the command 'openssl req -newkey rsa:2048 -nodes -keyout domain.key -x509 -days 365 -out domain.crt'. In production this will need to be replaced.
