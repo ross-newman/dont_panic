@@ -8,8 +8,9 @@ This MangoDB, Express API search function queries a back end database for names.
 The host OS for the purpose of testing wast Windows 10 x64 and the setup instructions below are for this host only but can easily be run under UNIX/ Linux or OS X.
 
 Instaled components
-* MongoDB Comunity Server (3.6.5)
-* MongoDB Community Stable Edition (1.13.1)
+* [MongoDB Community](https://www.mongodb.com/download-center#community) Server (3.6.5)
+* [MongoDB Community](https://www.mongodb.com/download-center#community) Stable Edition (1.13.1)
+* [Node.js](https://nodejs.org/en/download/) (8.11.1)
 > NOTE: When installing MongoDB Community Server under Windows 10 you may get an error installing Compass. Deselect Compass and reinstall. Use the stand alone installer to install Compass to resolve this issue.
 
 ### Node.JS and MongoDB setup
