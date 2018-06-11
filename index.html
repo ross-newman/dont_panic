@@ -1,21 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="demo">
+
 <head>
   <title>Dont Panic</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css">
-  <script src="jquery/dist/jquery.min.js"></script>
-  <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="angular/angular.min.js"></script>
+  <script type="text/javascript" src="restangular/dist/restangular.min.js"></script>
 </head>
+
 <body>
-  
-<div class="container">
-  <h1>Simple name search</h1>
-  <p>Please enter part of the name you wish to search below:</p> 
-  <div id="search"></div>
-</div>
+  <div class="container">
+    <h1>Simple name search</h1>
+    <p>Please enter part of the name you wish to search below:</p>
+    <div ng-controller="search">
+      <div>
+        <input ng-model="searchstring" type="text" placeholder="Name to search">
+      </div>
+      <div>
+        <button id="search-button" ng-click="SearchNames()">Search</button>
+      </div>
+      <div>
+        <!-- Your message can go here. -->
+      </div>
+      <div id="search"></div>
+      <div id="result">
+        {{comment}}
+          <table class="table" >
+              <tr>
+                 <th scope="col">First</th>
+                 <th scope="col">Last</th>
+              </tr>
+              <tr ng-repeat = "x in names">
+                 <td> {{x.name.first}} </td>
+                 <td> {{x.name.last}} </td>
+              </tr>
+           </table>
+      </div>
+    </div>
+  </div>
 
 </body>
-<script src="app.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+
 </html>

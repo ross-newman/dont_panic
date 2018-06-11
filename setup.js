@@ -15,18 +15,8 @@ MongoClient.connect(url, function (err, db) {
 
 MongoClient.connect(url, function (err, db) {
     if (err) throw err;
-    var dbo = db.db(database_name);
-    dbo.createCollection("customers", function (err, res) {
-        if (err) throw err;
-        console.log("Collection created!");
-        db.close();
-    });
-});
-
-MongoClient.connect(url, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db(database_name);
     var names = new Array();
+    var dbo = db.db(database_name);
 
     // Read the names in from a file
     var myInterface = readline.createInterface({
@@ -48,7 +38,6 @@ MongoClient.connect(url, function (err, db) {
             db.close();
         });
     });
-
 });
 
 console.log("Done...");
