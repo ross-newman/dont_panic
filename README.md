@@ -32,7 +32,10 @@ npm test
 Features not yet implemented are marked with a TODO in the code. These include:
 - [x] Check index.html against https://validator.w3.org
 - [ ] Allow partial name matches in application
-- [ ] Secure the mongoDB and AngularJS connection
+- [ ] Secure the mongoDB and AngularJS connection (Authentication and Authorization).
+- [ ] Encrypt connection data https.
 - [ ] Update the backend to use Express as per the requirement
+- [ ] Add inline documentation into comments ([jsdoc](https://www.npmjs.com/package/jsdoc)) and test documentation generation (incomplete)
 
-The backend currently uses http
+
+The backend currently uses http-server
