@@ -22,3 +22,17 @@ All other dependancies are described in [package.json](./package.json). All fron
 ```
 npm install
 ```
+To setup the default database of 50 names (created using http://listofrandomnames.com/) run the test script below.
+```
+npm test
+```
+> NOTE: MongoDB is assumed to be running on the localhost and at this point is unsecured.
+
+## Todo List
+Features not yet implemented are marked with a TODO in the code. These include:
+- [x] Check index.html against https://validator.w3.org
+- [ ] Allow partial name matches in application
+- [ ] Secure the mongoDB and AngularJS connection
+- [ ] Update the backend to use Express as per the requirement
+
+The backend currently uses http
