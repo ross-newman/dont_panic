@@ -39,8 +39,6 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
 - [ ] Wrap the search functions in a module class with reusable methods along with other functions that are generic and re-usable.
 
-The backend currently uses http-server
-
 ## Comments
 AngularJS was used in this example as switching to Angular 2 would have increased the development time as I am not familiar with newer releases of the Angular framework. 
 
