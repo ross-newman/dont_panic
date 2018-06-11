@@ -1,7 +1,7 @@
 # Dont Panic
 This is not a test, well actually it is but lets run with it.
 
-This MangoDB search function queries a back end database for names. Below are the setup and install instructions for running this sample code application
+This MangoDB, Express API search function queries a back end database for names. Below are the setup and install instructions for running this sample code application. Application written in AngularJS, Bootstrap with REST API. 
 
 ## Test Environment
 
@@ -22,12 +22,19 @@ All other dependancies are described in [package.json](./package.json). All fron
 ```
 npm install
 ```
-To setup the default database of 50 names (created using http://listofrandomnames.com/) run the test script below. You can replace the list with your own or add names to the list as required see [names.txt](./names.txt)
+To setup the default database of 50 names (created using http://listofrandomnames.com/) run the test script below. You can replace the list with your own or add names to the list as required see [names.txt](./names.txt).
 ```
 npm test
 ```
-> NOTE: MongoDB is assumed to be running on the localhost and at this point is unsecured.
+> NOTE: MongoDB is assumed to be running on the localhost and at this point is unsecured if the SECURE var is not set to 1.
 
+Application can now be started by typing:
+```
+npm start
+```
+To launch the application [https://localhost:3000](https://localhost:3000).
+
+To view the full list of names go to [https://localhost:3000/api](https://localhost:3000/api).
 ## Todo List
 Features not yet implemented are marked with a TODO in the code. These include:
 - [x] Check index.html against https://validator.w3.org
@@ -38,6 +45,7 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [ ] Add inline documentation into comments ([jsdoc](https://www.npmjs.com/package/jsdoc)) and test documentation generation (incomplete)
 - [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
 - [ ] Wrap the search functions in a module class with reusable methods along with other functions that are generic and re-usable.
+- [ ] Add opertions to modify / delete data.
 
 ## Comments
 AngularJS was used in this example as switching to Angular 2 would have increased the development time as I am not familiar with newer releases of the Angular framework. 
