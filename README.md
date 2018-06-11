@@ -31,7 +31,7 @@ npm test
 ## Todo List
 Features not yet implemented are marked with a TODO in the code. These include:
 - [x] Check index.html against https://validator.w3.org
-- [ ] Allow partial name matches in application
+- [x] Allow partial name matches in application
 - [ ] Secure the mongoDB and AngularJS connection (Authentication and Authorization).
 - [ ] Encrypt connection data https.
 - [x] Update the backend to use Express as per the requirement
