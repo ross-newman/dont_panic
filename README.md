@@ -3,6 +3,7 @@ This is not a test, well actually it is but lets run with it.
 
 This MangoDB, Express API search function queries a back end database for names. Below are the setup and install instructions for running this sample code application. Application written in AngularJS, Bootstrap with REST API. 
 
+![Application screnshot](img/applcation.png)<br>
 ## Test Environment
 
 The host OS for the purpose of testing wast Windows 10 x64 and the setup instructions below are for this host only but can easily be run under UNIX/ Linux or OS X.
