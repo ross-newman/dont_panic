@@ -36,6 +36,14 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [ ] Encrypt connection data https.
 - [ ] Update the backend to use Express as per the requirement
 - [ ] Add inline documentation into comments ([jsdoc](https://www.npmjs.com/package/jsdoc)) and test documentation generation (incomplete)
-
+- [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
+- [ ] Wrap the search functions in a module class with reusable methods along with other functions that are generic and re-usable.
 
 The backend currently uses http-server
+
+## Comments
+AngularJS was used in this example as switching to Angular 2 would have increased the development time as I am not familiar with newer releases of the Angular framework. 
+
+Inital implementation did not use the express framework again due to lack of familiarity. Prototyping the code using http-server was more familiar and could be switched out later. Getting the MongoDB API functioning was deemed the highest priority so this was the feature that I focused on first.
+
+Some importance was placed on the front end. Bootstrap was used to provide a simple clean interface and to present the clean table or results post search.
