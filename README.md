@@ -34,7 +34,7 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [ ] Allow partial name matches in application
 - [ ] Secure the mongoDB and AngularJS connection (Authentication and Authorization).
 - [ ] Encrypt connection data https.
-- [ ] Update the backend to use Express as per the requirement
+- [x] Update the backend to use Express as per the requirement
 - [ ] Add inline documentation into comments ([jsdoc](https://www.npmjs.com/package/jsdoc)) and test documentation generation (incomplete)
 - [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
 - [ ] Wrap the search functions in a module class with reusable methods along with other functions that are generic and re-usable.
