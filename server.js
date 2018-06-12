@@ -9,11 +9,11 @@ var fs = require('fs');
 var database_name = "name";
 var mongodb_url = "mongodb://localhost:27017/" + database_name;
 
-// Adding HTTPS encrypted connection
+// Adding HTTPS encrypted connection sertificate and key
 var https = require('https');
 var privateKey = fs.readFileSync('sslcert/domain.key', 'utf8');
 var certificate = fs.readFileSync('sslcert/domain.crt', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
+var credentials = { key: privateKey, cert: certificate };
 
 // Connection URL
 const database_url = 'mongodb://localhost:27017';
@@ -42,6 +42,17 @@ function log(msg) {
     if (DEBUG) {
         console.log(msg);
     }
+}
+
+/**
+ * The catch all #404 Page Not Found response.
+ * 
+ * @param {Object} res - HTTP server response object
+ * @param {String} res - HTTP response object.
+ */
+function notFound(req, res) {
+    var response404 = ('Simple name server, please use the prescribed RESTful API<br>Error 404, page not found : ' + req.url);
+    res.status(404).send(response404);
 }
 
 /**
@@ -79,16 +90,10 @@ function fileServer(res, filename) {
 
     fs.readFile(filePath, function (err, data) {
         if (err) {
-            fs.readFile("./404.html", function (e, data404) {
-                if (e) {
-                    return res.end('404 Not Found');
-                }
-                res.write(data404);
-                return res.end();
-            });
+            notFound(filename, res);
         } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.write(data);
+            res.set('Content-Type', contentType);
+            res.send(data);
             return res.end();
         }
     });
@@ -112,7 +117,7 @@ function apiServer(res, apiname) {
             if (err) throw err;
             var dbo = db.db(database_name);
             dbo.collection("customers").find({}, { projection: { _id: 0, name: 1 } }).toArray(function (err, result) {
-                res.write(JSON.stringify(result));
+                res.json(result);
                 res.end();
             });
         });
@@ -126,24 +131,11 @@ function apiServer(res, apiname) {
             log("API query : " + search);
             // TODO: Improve search. Search partial and last names
             dbo.collection("customers").find({ "name.first": new RegExp(search, "i") }, { projection: { _id: 0, name: 1 } }).toArray(function (err, result) {
-                res.write(JSON.stringify(result));
+                res.json(result);
                 res.end();
             });
         });
     }
-}
-
-/**
- * The catch all #404 Page Not Found response.
- * 
- * @param {Object} res - HTTP server response object
- * @param {String} res - HTTP response object.
- */
-function notFound(req, res) {
-    res.writeHead(404, { 'Content-Type': 'text/html' });
-    res.write('Simple name server, please use the prescribed RESTful API<br />');
-    res.write('Error 404, page not found : \n' + req.url);
-    res.end();
 }
 
 // Setup all the express routes
