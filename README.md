@@ -41,7 +41,11 @@ To view the full list of names go to [https://localhost:3000/api](https://localh
 JSON data is accessible via a simple API:
 - https://localhost:3000/api returns all names in the database
 - https://localhost:3000/api?search=Joe returns filters names in the database
-
+## Unit Tests
+Unit tests can be invoked and run using [Karma](https://karma-runner.github.io/2.0/index.html) and [Jasmine](https://jasmine.github.io/).
+```
+node .\node_modules\karma\bin\karma start .\karma-conf.js --reporters kjhtml
+```
 ## Todo List
 Features not yet implemented are marked with a TODO in the code. These include:
 - [x] Check index.html against https://validator.w3.org
@@ -53,7 +57,7 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
 - [ ] Wrap the search functions in a module class with reusable methods along with other functions that are generic and re-usable.
 - [ ] Add opertions to modify / delete data.
-- [ ] Consider CI/CT with automated testing (Karma, Jasmine).
+- [x] Consider CI/CT with automated testing (Karma, Jasmine).
 - [ ] Add AJAX icon when loading data
 
 ## Comments
