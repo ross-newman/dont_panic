@@ -15,6 +15,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'js/*.js',
       'test/*.js'
     ],
 
@@ -34,7 +37,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'spec'],
+    reporters: ['progress'],
 
 
     // web server port

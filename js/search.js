@@ -12,7 +12,7 @@
 		$scope.SearchNames = function () {
 			$scope.comment = "Please enter seach string first";
 
-			console.log("Button Clicked" + $scope.searchstring);
+			console.log("Button Clicked : " + $scope.searchstring);
 
 			if ($scope.searchstring == "") {
 				$scope.comment = "Please enter seach string first";

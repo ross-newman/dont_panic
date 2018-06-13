@@ -19,19 +19,64 @@ describe("jasmine testing", function () {
     });
 });
 
-describe("API suite", function () {
-    console.log("================= Log " + count++ + "=================");
-    it("Get all results", function () {
-        expect(true).toBe(true);
-    });
-    it("Get 'Dennis'", function () {
-        expect(true).toBe(true);
-    });
-    it("Get 'dennis'", function () {
-        expect(true).toBe(true);
-    });
-    it("Get all names containing an 'a'", function () {
-        expect(true).toBe(true);
+describe("Search tests", function () {
+
+    beforeEach(module("demo"));
+
+    var $controller, $rootScope, $http, $httpBackend;
+
+    beforeEach(inject(function (_$controller_, _$rootScope_, _$http_, _$httpBackend_) {
+        // The injector unwraps the underscores (_) from around the parameter names when matching
+        $controller = _$controller_;
+        $rootScope = _$rootScope_;
+        $http = _$http_;
+        $httpBackend = _$httpBackend_;
+    }));
+
+    describe('Unit API tests', function () {
+        console.log("================= Log " + count++ + "=================");
+        it("No comment check when loaded check", function () {
+            var $scope = $rootScope.$new();
+            expect($scope.comment).toBe(undefined);
+        });
+        console.log("================= Log " + count++ + "=================");
+        it("Get 3 names", function () {
+            var $scope = $rootScope.$new();
+            var controller = $controller('search', { $scope: $scope });
+            $scope.SearchNames();
+
+            $httpBackend
+                .whenGET(/\/api/)
+                .respond(function (method, url, data, headers, params) {
+                    return [ /* status */ 200, [ /* data */ { "name": { "first": "Dennis", "last": "Effler" } }, { "name": { "first": "Colene", "last": "Vigil" } }, { "name": { "first": "Ladonna", "last": "Tondreau" } }],]
+                });
+            $httpBackend.flush();
+            // console.log("+++" + JSON.stringify($scope.names));
+            expect($scope.names[0].name.first).toEqual("Dennis");
+            expect($scope.names[0].name.last).toEqual("Effler");
+            expect($scope.names[2].name.first).toEqual("Ladonna");
+            expect($scope.names[2].name.last).toEqual("Tondreau");
+        }); 
+        console.log("================= Log " + count++ + "=================");
+        it("Get all names containing an 'Co'", function () {
+            var $scope = $rootScope.$new();
+            var controller = $controller('search', { $scope: $scope });
+            $scope.searchstring = "Co"
+            $scope.SearchNames();
+
+            $httpBackend
+                .expect("GET", /\/api/) /* Inital call to populate the names list in full */
+                .respond();
+            $httpBackend
+                .whenGET(/\/api\?/)
+                .respond(function (method, url, data, headers, params) {
+                    expect(url).toBe('/api?search=Co');
+                    return [ /* status */ 200, [ /* data */ { "name": { "first": "Colene", "last": "Vigil" } }],]
+                });
+            expect($httpBackend.flush).not.toThrow();
+            expect($scope.names[0].name.first).toEqual("Colene");
+            expect($scope.names[0].name.last).toEqual("Vigil");
+        });
     });
 });
 
