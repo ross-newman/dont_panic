@@ -37,6 +37,11 @@ npm start
 To launch the application [https://localhost:3000](https://localhost:3000).
 
 To view the full list of names go to [https://localhost:3000/api](https://localhost:3000/api).
+### API
+JSON data is accessible via a simple API:
+- https://localhost:3000/api returns all names in the database
+- https://localhost:3000/api?search=Joe returns filters names in the database
+
 ## Todo List
 Features not yet implemented are marked with a TODO in the code. These include:
 - [x] Check index.html against https://validator.w3.org
@@ -48,13 +53,17 @@ Features not yet implemented are marked with a TODO in the code. These include:
 - [ ] Switch AngularJS implementation to Angular 2+ as per the requirement
 - [ ] Wrap the search functions in a module class with reusable methods along with other functions that are generic and re-usable.
 - [ ] Add opertions to modify / delete data.
+- [ ] Consider CI/CT with automated testing (Karma, Jasmine).
+- [ ] Add AJAX icon when loading data
 
 ## Comments
-AngularJS was used in this example as switching to Angular 2 would have increased the development time as I am not familiar with newer releases of the Angular framework. 
+AngularJS was used in this example as switching to Angular 2+ would have increased the development time as I am not familiar with newer releases of the Angular framework. 
 
 Inital implementation did not use the express framework again due to lack of familiarity. Prototyping the code using http-server was more familiar and could be switched out later. Getting the MongoDB API functioning was deemed the highest priority so this was the feature that I focused on first.
 
 Some importance was placed on the front end. Bootstrap was used to provide a simple clean interface and to present the clean table or results post search.
+
+Returning the data is slow. Consider loading all the data then using AngulkarJS filter to update the view with the search results.
 
 ## Notes
 There are a couple of vars that change the behaviuor of the server there are :
